@@ -1,0 +1,14 @@
+# Can everyone edit?
+public_write: true
+
+# Can anyone reister users?
+public_registration: true
+
+# Permalink of the home page.
+home_page: Home
+
+# Will be appended to the <title> tag.
+site_name: Go, Kii!
+
+# The name of the template, matching a directory name in app/templates.
+template: default

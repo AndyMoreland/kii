@@ -1,0 +1,8 @@
+<% page_title @page.title %>
+<div id="page_meta">
+  <%= link_to "Edit", edit_page_path(@page) if write_access? %>
+  <%= link_to "Revisions", page_revisions_path(@page) %>
+  <%= last_updated_at(@page) %>
+</div>
+
+<%= render_body(@page.revisions.current.body) %>

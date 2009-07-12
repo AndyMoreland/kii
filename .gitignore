@@ -1,0 +1,8 @@
+.DS_Store
+*.log
+*.pid
+*.sqlite3
+config/database.yml
+config/kii.yml
+db/schema.rb
+tmp/**/*

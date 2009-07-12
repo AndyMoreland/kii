@@ -1,0 +1,20 @@
+<% page_title "Login" %>
+
+<% form_for(@user_session, :url => session_path) do |f| %>
+  <p>
+    <%= f.label :login %>
+    <%= f.text_field :login %>
+  </p>
+  
+  <p>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </p>
+  
+  <p>
+    <%= f.submit "Login" %>
+    
+    <%= f.check_box :remember_me %>
+    <%= f.label :remember_me, nil, :class => "inline" %>
+  </p>
+<% end %>

@@ -1,0 +1,26 @@
+<% page_title "Revisions for &ldquo;#{@page.title}&rdquo;" %>
+<div id="page_meta">
+  <%= link_to "Back to page", page_path(@page) %>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Message</th>
+      <th>By</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @revisions.each do |revision| %>
+      <tr>
+        <td>
+          <%= link_to "##{revision.revision_number} #{page_timestamp(revision.created_at)}", page_revision_path(@page, revision) %>
+        </td>
+        <td><%= revision.message %></td>
+        <td><%= revision.user_id ? link_to(revision.user.login, user_path(revision.user)) : revision.remote_ip %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

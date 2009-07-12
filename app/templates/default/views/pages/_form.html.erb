@@ -1,0 +1,11 @@
+<% form_for(@page, :html => {:id => "page_form"}) do |f| %>
+  <%= f.hidden_field :title %>
+
+  <% f.fields_for "revision_attributes", @revision do |r| %>
+    <%= r.text_area :body  %>
+    <p><%= r.text_field :message %></p>
+  <% end %>
+
+  <%= f.submit "Preview", :name => "preview" %>
+  <%= f.submit "Save" %>
+<% end %>

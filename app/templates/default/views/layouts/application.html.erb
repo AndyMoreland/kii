@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <%= javascript_include_tag "jquery", "application", :cache => true %>
+  <%= stylesheet_link_tag "screen" %>
+  <title><%= @page_title %> - <%= Kii::CONFIG[:site_name] %></title>
+</head>
+<body>
+  <div id="main">
+    <div id="content">
+      <h1><%= @page_title %></h1>
+      <%= yield %>
+      
+      <div id="footer">
+        Powered by <a href="http://kiiproject.org">Kii</a>. Footer ting here. Bla bla.
+      </div>
+    </div>
+    
+    <div id="sidebar">
+      <div class="sidebar_block">
+        <ul class="simple">
+          <li><%= link_to "Home", page_path(Kii::CONFIG[:home_page]) %></li>
+        </ul>
+      </div>
+      
+      <div class="sidebar_block">
+        <% form_tag search_path, :method => :get, :id => "search_form" do %>
+          <strong>Search</strong>
+          <%= text_field_tag :q %>
+          <button type="submit">Go</button>
+        <% end %>
+      </div>
+      
+      <div class="sidebar_block">
+        <ul class="simple">
+          <% if logged_in? %>
+            <li><%= link_to current_user.login, user_path(current_user) %></li>
+            <li><%= link_to "Edit profile", edit_profile_path %></li>
+            <li><%= link_to "Log out", logout_path %></li>
+          <% else %>
+            <li><%= link_to "Login", new_session_path %></li>
+            
+            <% if Kii::CONFIG[:public_registration] %>
+              <li><%= link_to "Register", new_user_path %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

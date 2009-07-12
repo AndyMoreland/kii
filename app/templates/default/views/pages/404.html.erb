@@ -1,0 +1,10 @@
+<% @page_title = @page.title %>
+<div id="page_meta">&nbsp;</div>
+
+<p>
+  Article not found.
+
+  <% if write_access? %>
+    <%= link_to "Create it", new_page_path(params[:id]) %>!
+  <% end %>
+</p>

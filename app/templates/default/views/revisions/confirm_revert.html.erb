@@ -1,0 +1,8 @@
+<% page_title "Reverting &ldquo;#{@page.title}&rdquo; to revision #{@revision.revision_number}" %>
+<div id="page_meta">
+  <%= link_to "Back", page_revision_path(@page, @revision) %>
+</div>
+
+<p>This is a one-way operation. Also, it doesn't work yet.</p>
+
+<%= button_to "Revert!" %>
