@@ -5,4 +5,5 @@
 config/database.yml
 config/kii.yml
 db/schema.rb
+public/stylesheets/*.css
 tmp/**/*
