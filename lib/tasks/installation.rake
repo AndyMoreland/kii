@@ -16,9 +16,11 @@ namespace :kii do
   task :pre_install do
     require 'fileutils'
     
-    say "Creating database.yml"
+    say "Creating config files"
     rails_root = File.expand_path("#{File.dirname(__FILE__)}../../../")
-    FileUtils.cp("#{rails_root}/config/database.sample.yml", "#{rails_root}/config/database.yml")
+    ["database", "kii"].each {|config_file|
+      FileUtils.cp("#{rails_root}/config/#{config_file}.sample.yml", "#{rails_root}/config/#{config_file}.yml")
+    }
   end
   
   def say(this)

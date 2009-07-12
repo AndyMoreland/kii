@@ -4,3 +4,14 @@
     drowned itself in a toilet.
     
     Work in progress!
+    
+    
+    --~~ Setup ~~--
+    
+    Download the files.
+    
+    Run `git submodule init` and `git submodule update`.
+    
+    Run `rake kii:install`.
+    
+    Finished!
