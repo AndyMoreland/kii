@@ -13,7 +13,7 @@ module ApplicationHelper
     if page
       content_tag(:a, page.title, :class => "pagelink exists", :href => page.permalink)
     else
-      content_tag(:a, permalink, :class => "pagelink void", :href => permalink.to_permalink)
+      content_tag(:a, permalink, :class => "pagelink void", :href => permalink.capitalize.to_permalink)
     end
   end
 
