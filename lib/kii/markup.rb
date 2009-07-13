@@ -10,6 +10,7 @@ module Kii
       
       @html = @markup.dup
       @html.gsub!(/\[\[([^\]\]\|]+)\|?([^\]\]]+)?\]\]/) { page_link($~[1], ($~[2] || $~[1])) }
+      @html.gsub!(/(''+)([^']+)''+/) { bold_or_italic($~[1], $~[2]) }
       @html.gsub!(/\n+/, "<br/>")
       
       return @html
@@ -30,6 +31,17 @@ module Kii
       end
 
       @helper.content_tag(:a, link_text, options)
+    end
+    
+    def bold_or_italic(token, content)
+      case token.length
+      when 2
+        %{<em>#{content}</em>}
+      when 3
+        %{<strong>#{content}</strong>}
+      when 5
+        %{<em><strong>#{content}</strong></em>}
+      end
     end
   end
 end
