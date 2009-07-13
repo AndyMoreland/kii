@@ -5,6 +5,7 @@ class String
   def to_permalink
     copy = self.dup
     URL_ENCODE_CHARACTERS.each {|source, target| copy.gsub!(source, target) }
+    copy.capitalize!
     copy
   end
   
