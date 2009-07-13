@@ -2,6 +2,7 @@ namespace :kii do
   desc "Performs the operations Kii needs to run."
   task :install => [:pre_install, :environment] do
     say "Migrating the database"
+    Rake::Task["db:create"].invoke
     Rake::Task["db:migrate"].invoke
     
     if Page.find_by_permalink(Kii::CONFIG[:home_page])
