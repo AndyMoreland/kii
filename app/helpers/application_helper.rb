@@ -1,20 +1,25 @@
 module ApplicationHelper
   def render_body(body)
-    preliminary_page_body_parser(body)
+    Kii::Markup.new(body, self).to_html
   end
   
   def preliminary_page_body_parser(body)
-    body.gsub(/\[\[([^\]\]]+)\]\]/) {|link| inline_page_link($~[1]) }.gsub(/\n+/, "<br/>")
+    body.gsub(/\[\[([^\]\]\|]+)\|?([^\]\]]+)?\]\]/) {|link| inline_page_link($~[1], ($~[2] || $~[1])) }.gsub(/\n+/, "<br/>")
   end
   
-  def inline_page_link(permalink)
+  def inline_page_link(link_text, permalink)
     page = Page.find_by_permalink(permalink.to_permalink)
+    options = {}
     
     if page
-      content_tag(:a, page.title, :class => "pagelink exists", :href => page.permalink)
+      options[:class] = "pagelink exists"
+      options[:href] = page.permalink
     else
-      content_tag(:a, permalink, :class => "pagelink void", :href => permalink.to_permalink)
+      options[:class] = "pagelink void"
+      options[:href] = permalink.to_permalink
     end
+    
+    content_tag(:a, link_text, options)
   end
 
   def page_title(title)
