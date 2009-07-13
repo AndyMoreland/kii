@@ -8,7 +8,7 @@ module Kii
     def to_html
       return @html if defined?(@html)
       
-      @html = @markup.dup
+      @html = @helper.auto_link(@helper.send(:h, @markup))
       @html.gsub!(/\[\[([^\]\]\|]+)\|?([^\]\]]+)?\]\]/) { page_link($~[1], ($~[2] || $~[1])) }
       @html.gsub!(/(''+)([^']+)''+/) { bold_or_italic($~[1], $~[2]) }
       @html.gsub!(/\n+/, "<br/>")
