@@ -18,9 +18,7 @@ namespace :kii do
     
     say "Creating config files"
     rails_root = File.expand_path("#{File.dirname(__FILE__)}../../../")
-    ["database", "kii"].each {|config_file|
-      FileUtils.cp("#{rails_root}/config/#{config_file}.sample.yml", "#{rails_root}/config/#{config_file}.yml")
-    }
+    FileUtils.cp("#{rails_root}/config/kii.sample.yml", "#{rails_root}/config/kii.yml")
   end
   
   def say(this)
