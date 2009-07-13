@@ -3,10 +3,6 @@
 @header_border_color: #ccc;
 @void_page_color: #900;
 
-@main_width: 750px;
-@content_width: 600px;
-@sidebar_margin: 20px;
-
 .main_fonts {
   font-family: Georgia, serif;
   font-size:15px;
@@ -17,7 +13,6 @@ body {
   .main_fonts;
   background-color:#F9F9F9;
 }
-
 
 a {
   color:@link_color;
@@ -57,18 +52,27 @@ h3 {
 
 /* Main grid */
 
+@main_width: 800px;
+@sidebar_width: 150px;
+@main_spacing: 10px;
+@double_main_spacing: @main_spacing * 2;
+
+
 #main {
   margin: 1em auto;
-  width: @main_width + 2px;
-  padding:10px;
-  border:1px solid #ccc;
-  background:#fff;
+  width: @main_width + 4px; /* 4 1px borders */
   overflow:hidden;
+  
+  #sidebar, #content {
+    padding: @main_spacing;
+    border:1px solid #ccc;
+    background:#fff;
+  }
   
   #sidebar {
     float: left;
-    width: @main_width - @content_width - @sidebar_margin;
-    margin-left:@sidebar_margin;
+    width: @sidebar_width - @double_main_spacing;
+    margin-left: @main_spacing;
     font-size:.8em;
 
     .sidebar_block {
@@ -77,7 +81,7 @@ h3 {
     
     #search_form {
       input {
-        width:@main_width - @content_width - 70px;
+        width:@sidebar_width - 70px;
       }
       
       button {
@@ -88,7 +92,7 @@ h3 {
   
   #content {
     float: left;
-    width: @content_width;
+    width: @main_width - @sidebar_width - @double_main_spacing - @main_spacing; /* paddings - sidebar margin */ 
     
     #footer {
       margin-top:2em;
