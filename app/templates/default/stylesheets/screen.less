@@ -1,3 +1,12 @@
+@gray_text: #999;
+@link_color: #447799;
+@header_border_color: #ccc;
+@void_page_color: #900;
+
+@main_width: 750px;
+@content_width: 600px;
+@sidebar_margin: 20px;
+
 .main_fonts {
   font-family: Georgia, serif;
   font-size:15px;
@@ -6,9 +15,9 @@
 body {
   margin:0;
   .main_fonts;
+  background-color:#F9F9F9;
 }
 
-@link_color: #447799;
 
 a {
   color:@link_color;
@@ -30,8 +39,6 @@ h1, h2, h3, h4, h5, h6{
   font-family: "Lucida Grande", Arial, sans-serif;
 }
 
-@header_border_color: #ccc;
-
 h1 {
   font-size:1.6em;
   border-bottom: 2px solid @header_border_color;
@@ -50,13 +57,13 @@ h3 {
 
 /* Main grid */
 
-@main_width: 750px;
-@content_width: 600px;
-@sidebar_margin: 20px;
-
 #main {
   margin: 1em auto;
-  width: @main_width;
+  width: @main_width + 2px;
+  padding:10px;
+  border:1px solid #ccc;
+  background:#fff;
+  overflow:hidden;
   
   #sidebar {
     float: left;
@@ -87,7 +94,7 @@ h3 {
       margin-top:2em;
       display:block;
       font-size:.8em;
-      color:#999;
+      color:@gray_text;
     }
   }
 }
@@ -106,9 +113,9 @@ ul.simple{
   text-align:right;
   font-size:.8em;
   margin-bottom:.8em;
+  color:@gray_text;
 }
 
-@void_page_color: #900;
 
 .pagelink.void {
   color: @void_page_color;
