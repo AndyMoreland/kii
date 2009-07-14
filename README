@@ -5,15 +5,4 @@
     
     Work in progress!
     
-    
-    --~~ Setup ~~--
-    
-    Download the files.
-    
-    Run `git submodule init` and `git submodule update`.
-    
-    Create a config/database.yml.
-    
-    Run `rake kii:install`.
-    
-    Finished!
+    More info (setup, installation) on http://kii.lilleaas.net/.
