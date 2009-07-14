@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <%= javascript_include_tag "jquery", "application", :cache => true %>
   <%= stylesheet_link_tag "screen" %>
-  <title><%= @page_title %> - <%= Kii::CONFIG[:site_name] %></title>
+  <title><%= strip_tags(@page_title) %> - <%= Kii::CONFIG[:site_name] %></title>
 </head>
 <body>
   <div id="main">
