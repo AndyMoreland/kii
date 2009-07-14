@@ -1,8 +1,12 @@
 class PagesController < ApplicationController
   before_filter :require_write_access, :except => [:index, :show]
   
-  def index
+  def to_homepage
     redirect_to page_path(Kii::CONFIG[:home_page])
+  end
+  
+  def index
+    @pages = Page.find(:all, :order => "title")
   end
   
   def show

@@ -6,7 +6,7 @@ class PagesControllerTest < ActionController::TestCase
   end
   
   test "root redirects to home page" do
-    get :index
+    get :to_homepage
     assert_redirected_to page_path(Kii::CONFIG[:home_page])
   end
   

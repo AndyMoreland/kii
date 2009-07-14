@@ -1,14 +1,20 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller => "pages", :conditions => {:method => :get}
+  map.root :controller => "pages", :action => "to_homepage", :conditions => {:method => :get}
   
-  map.resource :search, :only => [:show]
-  map.resource :profile, :only => [:edit, :update]
-  map.resource :session
-  map.logout 'logout', :controller => "sessions", :action => "destroy"
-  map.resources :users
+  # Everything that isn't page related gets a prefix, so that we don't get
+  # conflicting page names and internal routes.
+  map.with_options :path_prefix => "_" do |m|
+    m.resource :search, :only => [:show]
+    m.resource :profile, :only => [:edit, :update]
+    m.resource :session
+    m.logout 'logout', :controller => "sessions", :action => "destroy"
+    m.resources :users
+  end
   
   # Can't do map.resources here, since we want /foo, not /pages/foo.
   map.with_options :controller => "pages" do |m|
+    m.all_pages "all_pages", :path_prefix => "_", :action => "index"
+    
     m.page ":id", :action => "show",            :conditions => {:method => :get}
     m.new_page "new/:title", :action => "new",  :conditions => {:method => :get}
     m.edit_page ":id/edit", :action => "edit",  :conditions => {:method => :get}
