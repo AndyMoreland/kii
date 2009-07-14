@@ -1,0 +1,26 @@
+<% page_title "Activity log" %>
+<div class="page_meta">&nbsp;</div>
+
+<p>Showing the 50 latest revisions.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Revision</th>
+      <th>Page</th>
+      <th>By</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @revisions.each do |revision| %>
+      <tr>
+        <td><%= page_timestamp revision.created_at %></td>
+        <td><%= link_to "# #{revision.revision_number}", page_revision_path(revision.page, revision) %></td>
+        <td><%= link_to revision.page.title, page_path(revision.page) %></td>
+        <td><%= revision_author_stamp(revision) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

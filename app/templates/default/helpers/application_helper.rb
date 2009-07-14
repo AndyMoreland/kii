@@ -6,4 +6,8 @@ module ApplicationHelper
   def page_timestamp(time)
     %{#{time.strftime("%B %d %Y, %H:%M")}}
   end
+  
+  def revision_author_stamp(revision)
+    revision.user_id ? link_to(revision.user.login, user_path(revision.user)) : revision.remote_ip
+  end
 end

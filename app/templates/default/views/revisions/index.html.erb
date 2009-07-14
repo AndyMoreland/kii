@@ -19,7 +19,7 @@
           <%= link_to "##{revision.revision_number} #{page_timestamp(revision.created_at)}", page_revision_path(@page, revision) %>
         </td>
         <td><%= revision.message %></td>
-        <td><%= revision.user_id ? link_to(revision.user.login, user_path(revision.user)) : revision.remote_ip %></td>
+        <td><%= revision_author_stamp(revision) %></td>
       </tr>
     <% end %>
   </tbody>

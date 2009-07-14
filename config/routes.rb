@@ -9,6 +9,8 @@ ActionController::Routing::Routes.draw do |map|
     m.resource :session
     m.logout 'logout', :controller => "sessions", :action => "destroy"
     m.resources :users
+    
+    m.resources :activities, :only => [:index]
   end
   
   # Can't do map.resources here, since we want /foo, not /pages/foo.
