@@ -37,7 +37,7 @@ class PagesController < ApplicationController
     @page = Page.new(params[:page])
     
     if used_preview_button?
-      render :action => "preview"
+      preview
     else
       @page.save!
       redirect_to page_path(@page)
@@ -54,7 +54,7 @@ class PagesController < ApplicationController
     
     if used_preview_button?
       @page.attributes = params[:page]
-      render :action => "preview"
+      preview
     else
       track_request_metadata
       @page.update_attributes!(params[:page])
@@ -66,6 +66,11 @@ class PagesController < ApplicationController
   
   def used_preview_button?
     !params[:preview].blank?
+  end
+  
+  def preview
+    @revision = Revision.new(params[:page][:revision_attributes])
+    render :action => "preview"
   end
   
   def permalink_is_pretty?(permalink)
