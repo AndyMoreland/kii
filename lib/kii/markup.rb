@@ -1,6 +1,11 @@
 module Kii
-  # Rolling our own. Not sure if this is a good idea.
+  # Mostly using the wikitext gem. Post-parsing to get those red links.
   class Markup
+    PARSER = Wikitext::Parser.new
+    # We look for this prefix in the post parsing, so that we can separate page links from
+    # other <a> tags. 
+    PARSER.internal_link_prefix = "internal_prefix"
+    
     def initialize(markup, helper)
       @markup, @helper = markup, helper
     end
@@ -8,10 +13,9 @@ module Kii
     def to_html
       return @html if defined?(@html)
       
-      @html = @helper.auto_link(@helper.send(:h, @markup))
-      @html.gsub!(/\[\[([^\]\]\|]+)\|?([^\]\]]+)?\]\]/) { page_link($~[1], ($~[2] || $~[1])) }
-      @html.gsub!(/(''+)([^']+)''+/) { bold_or_italic($~[1], $~[2]) }
-      @html.gsub!(/\n+/, "<br/>")
+      # base_heading_level lets us start on h2, since there's already a h1 on all pages.
+      @html = PARSER.parse(@markup, :base_heading_level => 1)
+      @html.gsub!(%r{<a href="internal_prefix(.*?)">(.*?)</a>}) { page_link(($~[2] || $~[1]), $~[1]) }
       
       return @html
     end
@@ -31,17 +35,6 @@ module Kii
       end
 
       @helper.content_tag(:a, link_text, options)
-    end
-    
-    def bold_or_italic(token, content)
-      case token.length
-      when 2
-        %{<em>#{content}</em>}
-      when 3
-        %{<strong>#{content}</strong>}
-      when 5
-        %{<em><strong>#{content}</strong></em>}
-      end
     end
   end
 end

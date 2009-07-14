@@ -12,17 +12,9 @@ class MarkupTest < ActiveSupport::TestCase
   end
   
   test "page links with custom link text" do
-    @html = parse("Hello, world. [[Custom text|Home]]")
+    @html = parse("Hello, world. [[Home|Custom text]]")
     assert_html("a.pagelink.exists")
     assert @html =~ /<a[^>]+>Custom text<\/a>/
-  end
-  
-  test "italic and bold and such" do
-    assert parse("''hi''").include?("<em>hi</em>")
-    assert parse("'''hi'''").include?("<strong>hi</strong>")
-    assert parse("'''''hi'''''").include?("<em><strong>hi</strong></em>")
-    assert parse("' ' hi ' it's that's gat's ''hi''").include?("' ' hi ' it's that's gat's <em>hi</em>")
-    assert parse("' ' hi ' '' and . ''").include?("' ' hi ' ")
   end
   
   private
