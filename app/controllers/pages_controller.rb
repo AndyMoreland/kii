@@ -47,6 +47,7 @@ class PagesController < ApplicationController
   def edit
     @page = Page.find_by_permalink!(params[:id])
     @revision = @page.revisions.current.clone
+    @revision.message = nil
   end
   
   def update

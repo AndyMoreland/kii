@@ -52,4 +52,19 @@ class PagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_template "pages/show"
   end
+  
+  test "editing" do
+    get :edit, :id => pages(:home).to_param
+    assert_response :success
+    assert_template "pages/edit"
+  end
+  
+  test "not persisting message when editing" do
+    post :create, :page => {:title => "Ya", :revision_attributes => {:body => "Ay", :message => "Wat."}}
+    created_page = assigns(:page)
+    
+    get :edit, :id => created_page.to_param
+    assert_response :success
+    assert !assigns(:revision).message
+  end
 end
