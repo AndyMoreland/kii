@@ -11,17 +11,17 @@ class PagesControllerTest < ActionController::TestCase
   end
   
   test "page creation form" do
-    get :new, :title => "My New Page".to_permalink
+    get :new, :id => "My New Page".to_permalink
     assert_response :success
     
     Kii::CONFIG[:public_write] = false
     assert_raises(ApplicationController::LacksWriteAccess) {
-      get :new, :title => "My New Page".to_permalink
+      get :new, :id => "My New Page".to_permalink
     }
   end
   
   test "prettifying permalinks" do
-    get :new, :title => "My New Page"
+    get :new, :id => "My New Page"
     assert_redirected_to new_page_path("My New Page".to_permalink)
     
     get :show, :id => "Another Page"

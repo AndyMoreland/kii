@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
     m.all_pages "all_pages", :path_prefix => "_", :action => "index"
     
     m.page ":id", :action => "show",            :conditions => {:method => :get}
-    m.new_page "new/:title", :action => "new",  :conditions => {:method => :get}
+    m.new_page "new/:id", :action => "new",  :conditions => {:method => :get}
     m.edit_page ":id/edit", :action => "edit",  :conditions => {:method => :get}
     
     m.pages "", :action => "create",            :conditions => {:method => :post}

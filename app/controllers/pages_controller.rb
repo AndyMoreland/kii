@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_filter :require_write_access, :except => [:index, :show]
+  before_filter :ensure_pretty_permalink, :only => [:show, :new]
   
   def to_homepage
     redirect_to page_path(Kii::CONFIG[:home_page])
@@ -12,24 +13,16 @@ class PagesController < ApplicationController
   def show
     @page = Page.find_by_permalink(params[:id])
     
-    if permalink_is_pretty?(params[:id])
-      if @page
-        render
-      else
-        @page = Page.new(:title => params[:id].from_permalink)
-        render :action => "404"
-      end
+    if @page
+      render
     else
-      redirect_to page_path(params[:id].to_permalink)
+      @page = Page.new(:title => params[:id].from_permalink)
+      render :action => "404"
     end
   end
   
   def new
-    if permalink_is_pretty?(params[:title])
-      @page = Page.new(:title => params[:title].from_permalink)
-    else
-      redirect_to new_page_path(params[:title].to_permalink)
-    end
+    @page = Page.new(:title => params[:id].from_permalink)
   end
   
   def create
@@ -80,10 +73,12 @@ class PagesController < ApplicationController
     end
   end
   
-  def permalink_is_pretty?(permalink)
-    CGI.unescape(permalink).to_permalink == permalink
+  def ensure_pretty_permalink
+    if CGI.unescape(params[:id]).to_permalink != params[:id]
+      redirect_to :id => params[:id].to_permalink
+    end
   end
-  
+
   def track_request_metadata
     params[:page][:revision_attributes].merge!({
       :remote_ip => request.remote_ip,
