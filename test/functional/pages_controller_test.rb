@@ -76,4 +76,13 @@ class PagesControllerTest < ActionController::TestCase
     assert_response :success
     assert !assigns(:revision).message
   end
+  
+  test "successfully creating" do
+    assert_difference("Page.count") do
+      post :create, :page => {:title => "Ya", :revision_attributes => {:body => "Ay"}}
+    end
+    
+    assert_equal "0.0.0.0", assigns(:page).revisions.current.remote_ip
+    assert_equal "/", assigns(:page).revisions.current.referrer
+  end
 end

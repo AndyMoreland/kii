@@ -26,8 +26,8 @@ class PagesController < ApplicationController
   end
   
   def create
-    track_request_metadata
     @page = Page.new(params[:page])
+    append_request_metadata_to_page
     
     if used_preview_button?
       preview
@@ -50,7 +50,7 @@ class PagesController < ApplicationController
       @page.attributes = params[:page]
       preview
     else
-      track_request_metadata
+      append_request_metadata_to_page
       @page.update_attributes!(params[:page])
       redirect_to page_path(@page)
     end
@@ -79,8 +79,8 @@ class PagesController < ApplicationController
     end
   end
 
-  def track_request_metadata
-    params[:page][:revision_attributes].merge!({
+  def append_request_metadata_to_page
+    @page.revision_attributes.merge!({
       :remote_ip => request.remote_ip,
       :referrer => request.referrer,
       :user_id => current_user.try(:id)
