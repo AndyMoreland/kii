@@ -65,8 +65,10 @@ class PagesController < ApplicationController
   def preview
     @revision = Revision.new(params[:page][:revision_attributes])
     
-    # FIXME: Use respond_to properly. render :inline is also a bit tacky
     if request.xhr?
+      # Using render :inline is a bit tacky, but it saves us from creating a
+      # separate view for this, or monving the helper into the application
+      # controller.
       render :inline => "<%= render_body(@revision.body) %>"
     else
       render :action => "preview"
