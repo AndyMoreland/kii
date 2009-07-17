@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <%= javascript_include_tag "jquery", "application", :cache => true %>
+  <%= javascript_include_tag template_script("jquery"), :cache => true %>
+  <%= yield(:scripts) %>
   <%= stylesheet_link_tag "screen" %>
   <title><%= strip_tags(@page_title) %> - <%= Kii::CONFIG[:site_name] %></title>
 </head>

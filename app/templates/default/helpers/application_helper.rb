@@ -14,4 +14,8 @@ module ApplicationHelper
   def revision_author_stamp(revision)
     revision.user_id ? link_to(revision.user.login, user_path(revision.user)) : revision.remote_ip
   end
+  
+  def template_script(script)
+    "/templates/#{Kii::CONFIG[:template]}/javascripts/#{script}"
+  end
 end

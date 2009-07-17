@@ -71,7 +71,13 @@ class PagesController < ApplicationController
   
   def preview
     @revision = Revision.new(params[:page][:revision_attributes])
-    render :action => "preview"
+    
+    # FIXME: Use respond_to properly. render :inline is also a bit tacky
+    if request.xhr?
+      render :inline => "<%= render_body(@revision.body) %>"
+    else
+      render :action => "preview"
+    end
   end
   
   def permalink_is_pretty?(permalink)

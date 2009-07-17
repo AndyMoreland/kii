@@ -41,6 +41,15 @@ class PagesControllerTest < ActionController::TestCase
     assert_template "pages/preview"
   end
   
+  test "previewing via ajax" do
+    xhr :post, :create, :preview => "Anything", :page => {
+      :title => "Ya",
+      :revision_attributes => {:body => "Ay"}
+    }
+    assert_response :success
+    assert_template nil
+  end
+  
   test "404" do
     get :show, :id => "Does Not Exist".to_permalink
     assert_response :success

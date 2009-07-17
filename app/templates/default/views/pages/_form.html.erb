@@ -1,3 +1,12 @@
+<% content_for :scripts do %>
+  <%= javascript_include_tag template_script("page_form") %>
+<% end %>
+
+<div id="page_form_tabs">
+  <div id="show_form" class="tab">Edit</div>
+  <div id="show_preview" class="tab">Preview</div>
+</div>
+
 <% form_for(@page, :html => {:id => "page_form"}) do |f| %>
   <%= f.hidden_field :title %>
 
@@ -9,3 +18,9 @@
   <%= f.submit "Preview", :name => "preview" %>
   <%= f.submit "Save" %>
 <% end %>
+
+<div id="page_preview">
+  <div id="page_preview_loading">Loading preview...</div>
+  <div id="page_preview_error">There was an error loading the preview.</div>
+  <div id="page_preview_content"></div>
+</div>
