@@ -50,8 +50,9 @@ class PagesController < ApplicationController
       @page.attributes = params[:page]
       preview
     else
+      @page.attributes = params[:page]
       append_request_metadata_to_page
-      @page.update_attributes!(params[:page])
+      @page.save
       redirect_to page_path(@page)
     end
   end
