@@ -29,6 +29,7 @@ class Page < ActiveRecord::Base
     self.permalink = self.title.to_permalink
   end
   
+  # TODO: When Rails 2.3.3 comes out use :touch => true on the association
   # Saving a page normally involves creating a new revision, and leaving the
   # page itself unchanged. AR won't update the timestamps, so we force it to
   # here.
