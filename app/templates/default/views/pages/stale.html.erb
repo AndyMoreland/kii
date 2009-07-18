@@ -1,0 +1,12 @@
+<% page_title "Conflicting edits" %>
+<div id="page_meta">&nbsp;</div>
+
+<p>Someone changed the page while you were editing it. Make sure those edits (see below) are honored, and save again to add your changes.</p>
+
+<h2>Your edit</h2>
+<%= render :partial => "form" %>
+
+<h2>Changes made in current revision</h2>
+<div id="conflicting_edit">
+  <%= Kii::Differ.diff(render_body(@previous_revision.body), render_body(@current_revision.body)) %>
+</div>
