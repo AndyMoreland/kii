@@ -1,4 +1,5 @@
 class Page < ActiveRecord::Base
+  # TODO: When Rails 2.3.3 comes out use :touch => true on the association
   has_many :revisions do
     def current
       first
