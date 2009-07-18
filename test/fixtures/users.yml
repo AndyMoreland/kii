@@ -1,7 +1,5 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+admin:
+  login: admin
+  crypted_password: a83ca5107347f85a5df87a0538e6e2924ad1cdbfd085e55cb6cc9987fcf5ca41416d35c4c0bd9b36da2b92a498b2eee2db42a41ccf343a6d8e28ce8668eed6ea
+  password_salt: vuQACQJUwjPSUJn7oN4W
+  persistence_token: a37cc76fac229d2a8920daadc9fda788a3950acd38d1f694884ee427ce7a2fa835e35979ff6e391ef9b5ac379f1fb8d59b24a8f3dc13e37bd688d9828a60b751

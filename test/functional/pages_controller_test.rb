@@ -3,6 +3,7 @@ require 'test_helper'
 class PagesControllerTest < ActionController::TestCase
   def setup
     Kii::CONFIG[:public_write] = true
+    activate_authlogic
   end
   
   test "to_homepage" do
@@ -47,9 +48,20 @@ class PagesControllerTest < ActionController::TestCase
     
     assert_equal "1.2.3.4", assigns(:page).revisions.current.remote_ip
     assert_equal "/testing", assigns(:page).revisions.current.referrer
+    assert_equal nil, assigns(:page).revisions.current.user
   end
   
   test "successful create when logged in" do
+    UserSession.create(users(:admin))
+    
+    assert_difference("Page.count") do
+      post :create, :page => {
+        :title => "New Page",
+        :revision_attributes => {:body => "The body"}
+      }
+    end
+    
+    assert_equal users(:admin), assigns(:page).revisions.current.user
   end
   
   test "preview on create" do
@@ -98,9 +110,17 @@ class PagesControllerTest < ActionController::TestCase
     
     assert_equal "6.6.6.6", assigns(:page).revisions.current.remote_ip
     assert_equal "/foo", assigns(:page).revisions.current.referrer
+    assert_equal nil, assigns(:page).revisions.current.user
   end
   
   test "successful update when logged in" do
+    UserSession.create(users(:admin))
+    
+    post :update, :id => pages(:sandbox).to_param, :page => {
+      :revision_attributes => {:body => "A new body"}
+    }
+    
+    assert_equal users(:admin), assigns(:page).revisions.current.user
   end
   
   test "preview on update" do
