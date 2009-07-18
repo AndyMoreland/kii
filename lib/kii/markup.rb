@@ -31,7 +31,7 @@ module Kii
     
     def preparse_linked_pages
       permalinks = []
-      @html.scan(PAGE_LINK_REGEX) {|match| permalinks << CGI.unescape(match[0]) }
+      @html.scan(PAGE_LINK_REGEX) {|match| permalinks << CGI.unescape(match[0]).to_permalink }
       @linked_pages = Page.all(:conditions => {:permalink => permalinks})
     end
     
@@ -41,7 +41,7 @@ module Kii
     
     def page_link(link_text, permalink)
       options = {}
-      page = @linked_pages.detect {|p| p.permalink == permalink }
+      page = @linked_pages.detect {|p| p.permalink == permalink.to_permalink }
       
       if page
         options[:class] = "pagelink exists"

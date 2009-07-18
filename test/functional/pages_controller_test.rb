@@ -164,6 +164,9 @@ class PagesControllerTest < ActionController::TestCase
   test "a page full of stuff" do
     get :show, :id => pages(:bloated).to_param
     assert_response :success
+    
+    assert_select "a.pagelink:not(.void)", "Sandbox"
+    assert_select "a.pagelink:not(.void)", "sandbox"
   end
 
   test "stale edits" do
