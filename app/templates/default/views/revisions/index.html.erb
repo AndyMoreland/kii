@@ -1,12 +1,11 @@
-<% page_title "Revisions for &ldquo;#{@page.title}&rdquo;" %>
-<div id="page_meta">
-  <%= link_to "Back to page", page_path(@page) %>
-</div>
+<% page_title "Revisions for &ldquo;#{link_to @page.title, page_path(@page)}&rdquo;" %>
+<div id="page_meta">&nbsp;</div>
 
 <table>
   <thead>
     <tr>
-      <th></th>
+      <th>#</th>
+      <th>Date</th>
       <th>Message</th>
       <th>By</th>
     </tr>
@@ -15,6 +14,7 @@
   <tbody>
     <% @revisions.each do |revision| %>
       <tr>
+        <td><%= revision.revision_number %></td>
         <td><%= revision_link(@page, revision) %></td>
         <td><%= revision.message %></td>
         <td><%= revision_author_stamp(revision) %></td>

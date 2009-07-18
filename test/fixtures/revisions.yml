@@ -1,3 +1,22 @@
 home_a:
   page: home
   body: Hello, world.
+  
+sandbox_a:
+  page: sandbox
+  body: This is the sandbox.
+  revision_number: 1
+
+sandbox_b:
+  page: sandbox
+  body: This is the updated sandbox.
+  revision_number: 2
+  
+bloated_a:
+  page: bloated
+  body: |
+    This page has a lot of stuff in it. Its purpose is to cause a test to fail if there are any errors in `Kii::Markup`.
+    
+    Let's start with a [[home|Existing page]]. Now for a page that [[does not exist]].
+    
+    [[Sandbox]] and [[sandbox]]

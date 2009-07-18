@@ -9,6 +9,7 @@
 
 <% form_for(@page, :html => {:id => "page_form"}) do |f| %>
   <%= f.hidden_field :title %>
+  <%= f.hidden_field :current_revision_id %>
 
   <% f.fields_for "revision_attributes", @revision do |r| %>
     <%= r.text_area :body  %>

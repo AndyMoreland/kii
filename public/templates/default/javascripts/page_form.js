@@ -4,7 +4,6 @@ $(function(){
   //////////////////////////////
   // AJAX Previews
   //
-  $("#page_form_tabs").show();
   $("#page_form_tabs div:first").addClass("active");
   
   // Handiling active tab color

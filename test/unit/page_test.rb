@@ -25,6 +25,7 @@ class PageTest < ActiveSupport::TestCase
     assert_equal 2, page.revisions.last.revision_number
     
     page.revision_attributes = {:body => "updated, again!"}
+    page.current_revision_id = page.revisions.last.id
     page.save
     assert_equal 3, page.revisions.last.revision_number
   end
@@ -35,6 +36,16 @@ class PageTest < ActiveSupport::TestCase
     
     page_b = create_page(:title => "Page B")
     assert_equal 1, page_b.revisions.last.revision_number
+  end
+  
+  test "bumping updated at regardless of there being changes to the page itself" do
+    page = pages(:home)
+    was_updated_at = page.updated_at
+
+    page.revision_attributes = {:body => "Yep!"}
+    page.save
+    
+    assert_not_equal was_updated_at, page.updated_at
   end
   
   def new_page(attrs = {})

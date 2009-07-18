@@ -2,6 +2,8 @@ class PagesController < ApplicationController
   before_filter :require_write_access, :except => [:index, :show]
   before_filter :ensure_pretty_permalink, :only => [:show, :new]
   
+  rescue_from ActiveRecord::StaleObjectError, :with => :handle_stale_page
+  
   def to_homepage
     redirect_to page_path(Kii::CONFIG[:home_page])
   end
@@ -45,12 +47,11 @@ class PagesController < ApplicationController
   
   def update
     @page = Page.find_by_permalink!(params[:id])
+    @page.attributes = params[:page]
     
     if used_preview_button?
-      @page.attributes = params[:page]
       preview
     else
-      @page.attributes = params[:page]
       append_request_metadata_to_page
       @page.save
       redirect_to page_path(@page)
@@ -88,5 +89,14 @@ class PagesController < ApplicationController
       :referrer => request.referrer,
       :user_id => current_user.try(:id)
     })
+  end
+  
+  def handle_stale_page
+    @revision = Revision.new(:body => params[:page][:revision_attributes][:body])
+    @previous_revision = @page.revisions.find(@page.current_revision_id)
+    @current_revision = @page.revisions.current
+    
+    @page.current_revision_id = @page.revisions.current.id
+    render :action => "stale"
   end
 end
