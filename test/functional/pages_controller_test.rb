@@ -160,4 +160,9 @@ class PagesControllerTest < ActionController::TestCase
       get :new, :id => "New Page".to_permalink
     }
   end
+  
+  test "a page full of stuff" do
+    get :show, :id => pages(:bloated).to_param
+    assert_response :success
+  end
 end
