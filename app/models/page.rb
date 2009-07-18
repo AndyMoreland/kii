@@ -1,7 +1,7 @@
 class Page < ActiveRecord::Base
   has_many :revisions do
     def current
-      ordered.first
+      first
     end
   end
   

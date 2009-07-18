@@ -1,7 +1,7 @@
 class RevisionsController < ApplicationController
   def index
     @page = Page.find_by_permalink!(params[:page_id])
-    @revisions = @page.revisions.ordered.with_user
+    @revisions = @page.revisions.with_user
   end
   
   def show
