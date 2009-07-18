@@ -145,8 +145,10 @@ ul.simple{
 }
 
 #page_form_tabs {
-  display:none; /* Hide initially, re-display with JS */
   overflow:hidden;
+  
+  border-bottom:2px solid #999;
+  margin-bottom:10px;
   
   .tab {
     float:left;
@@ -162,7 +164,7 @@ ul.simple{
   
   .tab.active {
     cursor: default;
-    background-color:#ccc;
+    background-color:#999;
   }
 }
 
@@ -170,7 +172,6 @@ ul.simple{
   display:none; /* Hide initially */
   
   width:100%;
-  border:1px solid #ccc;
 }
 
 #page_preview_loading {
