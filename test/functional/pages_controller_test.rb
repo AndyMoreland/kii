@@ -165,4 +165,14 @@ class PagesControllerTest < ActionController::TestCase
     get :show, :id => pages(:bloated).to_param
     assert_response :success
   end
+
+  test "stale edits" do
+    post :update, :id => pages(:sandbox).to_param, :page => {
+      :current_revision_id => revisions(:sandbox_a).id,
+      :revision_attributes => {:body => "A new body"}
+    }
+    
+    assert_response :success
+    assert_template "pages/stale"
+  end
 end
