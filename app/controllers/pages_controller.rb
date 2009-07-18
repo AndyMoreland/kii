@@ -45,12 +45,11 @@ class PagesController < ApplicationController
   
   def update
     @page = Page.find_by_permalink!(params[:id])
+    @page.attributes = params[:page]
     
     if used_preview_button?
-      @page.attributes = params[:page]
       preview
     else
-      @page.attributes = params[:page]
       append_request_metadata_to_page
       @page.save
       redirect_to page_path(@page)
