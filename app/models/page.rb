@@ -5,7 +5,7 @@ class Page < ActiveRecord::Base
     end
   end
   
-  before_save :create_permalink
+  before_save :create_permalink, :bump_timestamps
   before_validation :build_revision
   
   validates_presence_of :title, :revision_attributes
@@ -21,6 +21,13 @@ class Page < ActiveRecord::Base
   
   def create_permalink
     self.permalink = self.title.to_permalink
+  end
+  
+  # Saving a page normally involves creating a new revision, and leaving the
+  # page itself unchanged. AR won't update the timestamps, so we force it to
+  # here.
+  def bump_timestamps
+    self.updated_at = Time.now.utc
   end
   
   def build_revision

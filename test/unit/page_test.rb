@@ -37,6 +37,16 @@ class PageTest < ActiveSupport::TestCase
     assert_equal 1, page_b.revisions.last.revision_number
   end
   
+  test "bumping updated at regardless of there being changes to the page itself" do
+    page = pages(:home)
+    was_updated_at = page.updated_at
+
+    page.revision_attributes = {:body => "Yep!"}
+    page.save
+    
+    assert_not_equal was_updated_at, page.updated_at
+  end
+  
   def new_page(attrs = {})
     Page.new(attrs.reverse_merge!(:title => "A new page!", :revision_attributes => {:body => "ai"}))
   end
