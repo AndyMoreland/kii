@@ -33,6 +33,9 @@ module Kii
         options[:class] = "pagelink void"
         options[:href] = "/" + permalink.to_permalink
       end
+      
+      options[:href] = CGI.unescape(options[:href])
+      options[:href].force_encoding("UTF-8") if options[:href].respond_to?(:force_encoding)
 
       @helper.content_tag(:a, link_text, options)
     end
