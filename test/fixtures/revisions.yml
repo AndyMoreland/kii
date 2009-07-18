@@ -1,3 +1,7 @@
 home_a:
   page: home
   body: Hello, world.
+  
+sandbox_a:
+  page: sandbox
+  body: This is the sandbox.

@@ -3,3 +3,7 @@ home:
   permalink: Home
   created_at: <%= 5.days.ago.to_s(:db) %>
   updated_at: <%= 3.days.ago.to_s(:db) %>
+  
+sandbox:
+  title: Sandbox
+  permalink: Sandbox
