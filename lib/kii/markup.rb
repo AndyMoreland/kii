@@ -36,11 +36,10 @@ module Kii
     end
     
     def create_page_links
-      @html.gsub!(PAGE_LINK_REGEX) { page_link(($~[2] || $~[1]), $~[1]) }
+      @html.gsub!(PAGE_LINK_REGEX) { page_link(($~[2] || $~[1]), CGI.unescape($~[1])) }
     end
     
     def page_link(link_text, permalink)
-      permalink = CGI.unescape(permalink)
       options = {}
       page = @linked_pages.detect {|p| p.permalink == permalink }
       
