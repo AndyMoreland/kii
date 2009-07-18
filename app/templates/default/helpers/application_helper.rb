@@ -8,7 +8,7 @@ module ApplicationHelper
   end
   
   def revision_link(page, revision)
-    link_to "##{revision.revision_number} #{page_timestamp(revision.created_at)}", page_revision_path(page, revision)
+    link_to page_timestamp(revision.created_at), page_revision_path(page, revision)
   end
   
   def revision_author_stamp(revision)
