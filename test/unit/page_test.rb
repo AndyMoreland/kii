@@ -5,14 +5,14 @@ class PageTest < ActiveSupport::TestCase
     assert new_page.valid?
   end
   
-  test "won't create without body" do
-    page = new_page(:revision_attributes => {:body => nil})
+  test "won't create without body content" do
+    page = new_page(:revision_attributes => {:body => ''})
     assert !page.valid?
   end
   
-  test "won't update without body" do
+  test "won't update without body content" do
     page = create_page
-    page.revision_attributes = {:body => nil}
+    page.revision_attributes = {:body => ''}
     assert !page.valid?
   end
   
