@@ -30,5 +30,6 @@ ActionController::Routing::Routes.draw do |map|
     m.page_revisions "revisions", :action => "index",     :conditions => {:method => :get}
     m.page_revision "revisions/:id", :action => "show",   :conditions => {:method => :get}
     m.confirm_revert_page_revision "revisions/:id/confirm_revert", :action => "confirm_revert", :conditions => {:method => :get}
+    m.revert_page_revision "revisions/:id/revert", :action => "revert", :conditions => { :method => :put }
   end  
 end

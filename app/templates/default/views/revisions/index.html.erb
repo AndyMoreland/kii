@@ -1,11 +1,15 @@
 <% page_title "Revisions for &ldquo;#{link_to @page.title, page_path(@page)}&rdquo;" %>
 <div id="page_meta">&nbsp;</div>
 
+Boldness indicates current revision.
+
+Probably will want to do something better than this ugly table. One day.
+
 <table>
   <thead>
     <tr>
-      <th>#</th>
       <th>Date</th>
+      <th>Of</th>
       <th>Message</th>
       <th>By</th>
     </tr>
@@ -14,8 +18,17 @@
   <tbody>
     <% @revisions.each do |revision| %>
       <tr>
-        <td><%= revision.revision_number %></td>
-        <td><%= revision_link(@page, revision) %></td>
+        <td>
+          <% link = revision_link(@page, revision) %>
+          <% if revision.current? %>
+            <% content_tag("strong") do %>
+              <%= link %>
+            <% end %>
+          <% else %>
+            <%= link %>
+          <% end %>
+        </td>
+        <td><%= revision_link(@page, revision.try(:parent)) %></td>
         <td><%= revision.message %></td>
         <td><%= revision_author_stamp(revision) %></td>
       </tr>

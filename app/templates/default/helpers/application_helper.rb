@@ -8,7 +8,8 @@ module ApplicationHelper
   end
   
   def revision_link(page, revision)
-    link_to page_timestamp(revision.created_at), page_revision_path(page, revision)
+    return if revision.nil?
+    link_to "##{revision.number} #{page_timestamp(revision.created_at)}", page_revision_path(page, revision)
   end
   
   def revision_author_stamp(revision)
@@ -18,4 +19,5 @@ module ApplicationHelper
   def template_script(script)
     "/templates/#{Kii::CONFIG[:template]}/javascripts/#{script}"
   end
+ 
 end

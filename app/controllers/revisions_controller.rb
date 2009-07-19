@@ -1,16 +1,30 @@
 class RevisionsController < ApplicationController
+  
+  before_filter :find_page
+  before_filter :find_revision, :only => [:show, :edit, :revert]
+  
   def index
-    @page = Page.find_by_permalink!(params[:page_id])
-    @revisions = @page.revisions.ordered.with_user
+    @revisions = @page.revisions.with_user
   end
   
   def show
-    @page = Page.find_by_permalink!(params[:page_id])
-    @revision = @page.revisions.find_by_revision_number(params[:id])
   end
   
   def confirm_revert
-    @page = Page.find_by_permalink!(params[:page_id])
-    @revision = @page.revisions.find_by_revision_number(params[:id])
   end
+  
+  def revert
+    @revision.revert_to!
+    redirect_to @page
+  end
+    
+  private
+  
+    def find_page
+      @page = Page.find_by_permalink!(params[:page_id])
+    end
+    
+    def find_revision
+      @revision = @page.revisions.find_by_number(params[:id])
+    end
 end

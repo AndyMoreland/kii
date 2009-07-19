@@ -1,7 +1,7 @@
-<% page_title "Revision \##{@revision.revision_number} of &ldquo;#{link_to @page.title, page_path(@page)}&rdquo;" %>
+<% page_title "Revision #{@revision.number} of &ldquo;#{link_to @page.title, page_path(@page)}&rdquo;" %>
 <div id="page_meta">
   <%= link_to "Back to list", page_revisions_path(@page) %>
-  <%= link_to "Revert to this revision", confirm_revert_page_revision_path(@page, @revision) unless @page.revisions.current == @revision %>
+  <%= link_to "Revert to this revision", confirm_revert_page_revision_path(@page, @revision) unless @page.revisions.current == @revision %><br>
   As of <%= page_timestamp(@revision.created_at) %>
 </div>
 
