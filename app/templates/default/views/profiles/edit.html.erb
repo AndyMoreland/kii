@@ -7,5 +7,5 @@
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
   
-  <%= f.submit "Save" %>
+  <%= f.submit "Save" %> or <%= link_to 'cancel', user_path(@user), :class => 'negative' %>
 <% end %>
