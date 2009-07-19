@@ -48,7 +48,7 @@ class Revision < ActiveRecord::Base
   
   def set_current_revision_id
     self.page.current_revision_id = self.id
-    self.page.save
+    self.page.save if self.page.new_record?
   end
   
   # WARNING: May induce race conditions, be wary.

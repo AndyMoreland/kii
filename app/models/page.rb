@@ -21,7 +21,7 @@ class Page < ActiveRecord::Base
   
   attr_writer :current_revision_id
   def current_revision_id
-    new_record? ? nil : (@current_revision_id ||= revisions.current.id)
+    new_record? ? nil : (@current_revision_id ||= revisions.current.try(:id))
   end
   
   private
@@ -42,7 +42,7 @@ class Page < ActiveRecord::Base
   # already have these revisions we can might as well use them to detect
   # staleness.
   def detect_stale_revision
-    if current_revision_id.to_i != revisions.current.id
+    if current_revision_id.to_i != revisions.current.try(:id).to_i
       raise ActiveRecord::StaleObjectError
     end
   end
