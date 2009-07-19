@@ -1,8 +1,8 @@
-<% page_title "Reverting &ldquo;#{@page.title}&rdquo; to revision #{@revision.revision_number}" %>
+<% page_title "Reverting &ldquo;#{@page.title}&rdquo; to revision #{@revision.number}" %>
 <div id="page_meta">
   <%= link_to "Back", page_revision_path(@page, @revision) %>
 </div>
 
-<p>This is a one-way operation. Also, it doesn't work yet.</p>
+<p>Are you sure you want to revert to the <%= page_timestamp(@revision.created_at) %> revision? </p>
 
-<%= button_to "Revert!" %>
+<%= button_to "Revert!", revert_page_revision_path(@page, @revision), :method => :put %>

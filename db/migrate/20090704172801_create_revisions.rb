@@ -5,8 +5,7 @@ class CreateRevisions < ActiveRecord::Migration
       t.integer :user_id
       t.text :body, :null => false
       t.string :message
-      t.integer :revision_number
-      
+      t.integer :revision_number    
       t.string :remote_ip, :referrer
       t.timestamps
     end
