@@ -52,16 +52,14 @@ class PageTest < ActiveSupport::TestCase
   test "won't create a new revision if old content is the same as new and message is blank" do
     page = create_page(:title => "A new page!", :revision_attributes => { :body => "foo" })
     revision_id = page.current_revision_id
-    page.update_attributes(:title => "A new page!", :revision_attributes => { :body => "foo"})
-    page.save
+    update_page(page, :body => "foo")
     assert_equal revision_id, page.current_revision_id
   end
 
  test "will create a new revision if old content is the same as new and message is not blank" do
    page = create_page(:title => "A new page!", :revision_attributes => { :body => "foo" })
    revision_id = page.current_revision_id
-   page.update_attributes(:title => "A new page!", :revision_attributes => { :body => "foo", :message => "we're making lots of changes round here."})
-   page.save
+   update_page(page, {:body => "foo", :message => "we're making lots of changes round here."})
    assert_not_equal revision_id, page.current_revision_id
  end
   
