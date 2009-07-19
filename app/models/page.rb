@@ -42,11 +42,6 @@ class Page < ActiveRecord::Base
   # already have these revisions we can might as well use them to detect
   # staleness.
   def detect_stale_revision
-    puts "current"
-    puts current_revision_id
-    puts "real current"
-    puts revisions.current.id
-    puts "*" * 50
     if current_revision_id.to_i != revisions.current.id
       raise ActiveRecord::StaleObjectError
     end

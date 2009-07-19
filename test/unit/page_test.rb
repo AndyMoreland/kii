@@ -37,10 +37,7 @@ class PageTest < ActiveSupport::TestCase
   
   test "reverting to a specific revision" do
     page = create_page(:title => "A Page")
-    assert_equal page.title, "A Page"
     update_page(page, { :body => "updated" })
-    update_page(page, { :body => "updated, again!"})
-    puts page.revisions.inspect 
     assert_equal 2, page.revisions.count
     
   end
@@ -58,5 +55,6 @@ class PageTest < ActiveSupport::TestCase
   def update_page(page, attrs={})
     page.revision_attributes = attrs
     page.save
+    page.current_revision_id = page.revisions.current.id
   end
 end
