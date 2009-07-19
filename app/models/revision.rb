@@ -25,6 +25,7 @@ class Revision < ActiveRecord::Base
     # To ensure we're never left without at least 1 current page.
     orig_current = page.revisions.current
     self.update_attribute(:current, true)
+    page.current_revision_id = self.id
     orig_current.update_attribute(:current, false)
   end
     
@@ -47,6 +48,7 @@ class Revision < ActiveRecord::Base
   
   def set_current_revision_id
     self.page.current_revision_id = self.id
+    self.page.save
   end
   
   # WARNING: May induce race conditions, be wary.
