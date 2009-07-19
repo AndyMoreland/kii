@@ -5,14 +5,14 @@ class PageTest < ActiveSupport::TestCase
     assert new_page.valid?
   end
   
-  test "won't create without body" do
-    page = new_page(:revision_attributes => {:body => nil})
+  test "won't create without body content" do
+    page = new_page(:revision_attributes => {:body => ''})
     assert !page.valid?
   end
   
-  test "won't update without body" do
+  test "won't update without body content" do
     page = create_page
-    page.revision_attributes = {:body => nil}
+    page.revision_attributes = {:body => ''}
     assert !page.valid?
   end
   
@@ -39,8 +39,32 @@ class PageTest < ActiveSupport::TestCase
     page = create_page(:title => "A Page")
     update_page(page, { :body => "updated" })
     assert_equal 2, page.revisions.count
-    
   end
+
+  test "bumping updated at regardless of there being changes to the page itself" do
+    page = pages(:home)
+    was_updated_at = page.updated_at
+
+    page.revision_attributes = {:body => "Yep!"}
+    page.save
+  end
+
+  test "won't create a new revision if old content is the same as new and message is blank" do
+    page = create_page(:title => "A new page!", :revision_attributes => { :body => "foo" })
+    revision_id = page.current_revision_id
+    page.update_attributes(:title => "A new page!", :revision_attributes => { :body => "foo"})
+    page.save
+    assert_equal revision_id, page.current_revision_id
+  end
+
+ test "will create a new revision if old content is the same as new and message is not blank" do
+   page = create_page(:title => "A new page!", :revision_attributes => { :body => "foo" })
+   revision_id = page.current_revision_id
+   debugger
+   page.update_attributes(:title => "A new page!", :revision_attributes => { :body => "foo", :message => "we're making lots of changes round here."})
+   page.save
+   assert_not_equal revision_id, page.current_revision_id
+ end
   
   def new_page(attrs = {})
     Page.new(attrs.reverse_merge!(:title => "A new page!", :revision_attributes => {:body => "ai"}))

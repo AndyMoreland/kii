@@ -17,7 +17,7 @@
   <% end %>
 
   <%= f.submit "Preview", :name => "preview" %>
-  <%= f.submit "Save" %>
+  <%= f.submit "Save" %> or <%= link_to 'cancel', page_path(@page), :class => 'negative' %>
 <% end %>
 
 <div id="page_preview">

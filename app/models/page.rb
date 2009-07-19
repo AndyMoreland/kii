@@ -48,6 +48,8 @@ class Page < ActiveRecord::Base
   end
   
   def build_revision
-    revisions.build(revision_attributes)
+    unless revisions.current.try(:body) == revision_attributes[:body] && revision_attributes[:message].blank?
+      revisions.build(revision_attributes)
+    end
   end
 end
